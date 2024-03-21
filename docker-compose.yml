@@ -1,0 +1,42 @@
+version: '3.9'
+
+networks:
+  divar_network:
+    driver: bridge
+
+services:
+  divar_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "divar_app"
+    networks:
+      - divar_network
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+    command: npm start
+
+  divar_mongodb:
+    image: mongo:latest
+    container_name: "divar_mongodb"
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=divar
+      - MONGO_INITDB_ROOT_USERNAME=rootAdmin
+      - MONGO_INITDB_ROOT_PASSWORD=DYLc^w0p5fe3^sC
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - mongodb_data:/data/db
+    ports:
+      - "27018:27017"
+    expose:
+      - "27017"
+    networks:
+      - divar_network
+
+volumes:
+  mongodb_data:
+    driver: local
+    
