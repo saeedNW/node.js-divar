@@ -15,7 +15,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .:/usr/src/app
+      - /application/node_modules
     command: npm start
 
   divar_mongodb:
