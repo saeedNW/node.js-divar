@@ -24,6 +24,11 @@ async function main() {
 	/** import mongodb connection config */
 	require("./src/config/mongoose.config");
 
+	/** initialize express json body parser */
+	app.use(express.json());
+	/** initialize express urlencoded body parser */
+	app.use(express.urlencoded({ extended: true }));
+
 	/** initialize swagger */
 	SwaggerConfig(app);
 
