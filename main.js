@@ -10,6 +10,8 @@ dotenv.config({
 });
 /** import swagger configs */
 const SwaggerConfig = require("./src/config/swagger.config");
+/** import main router */
+const { mainRouter } = require("./src/app.routes");
 
 async function main() {
 	/** create an app instants from express */
@@ -31,6 +33,9 @@ async function main() {
 
 	/** initialize swagger */
 	SwaggerConfig(app);
+
+	/** initialize application routers */
+	app.use(mainRouter);
 
 	app.listen(PORT, () => {
 		console.log(`Server: http://localhost:${PORT}`);
