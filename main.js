@@ -2,16 +2,18 @@
 const express = require("express");
 /** import dotenv */
 const dotenv = require("dotenv");
-/** import path */
-const path = require("path");
 /** config project's env file */
 dotenv.config({
-	path: path.resolve(`./env/.env.${process.env.NODE_ENV}`),
+	path: process.cwd() + `/env/.env.${process.env.NODE_ENV}`,
 });
 /** import swagger configs */
 const SwaggerConfig = require("./src/config/swagger.config");
 /** import main router */
 const { mainRouter } = require("./src/app.routes");
+/** import notfound exception handler */
+const notFoundHandler = require("./src/common/exceptions/notfound.handler");
+/** import errors exception handler */
+const errorsHandler = require("./src/common/exceptions/error.handler");
 
 async function main() {
 	/** create an app instants from express */
@@ -36,6 +38,10 @@ async function main() {
 
 	/** initialize application routers */
 	app.use(mainRouter);
+	/** initialize notfound exception handler */
+	notFoundHandler(app);
+	/** initialize errors exception handler */
+	errorsHandler(app);
 
 	app.listen(PORT, () => {
 		console.log(`Server: http://localhost:${PORT}`);
