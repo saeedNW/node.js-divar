@@ -4,12 +4,12 @@ const express = require("express");
 const dotenv = require("dotenv");
 /** import path */
 const path = require("path");
-/** import swagger configs */
-const SwaggerConfig = require("./src/config/swagger.config");
 /** config project's env file */
 dotenv.config({
 	path: path.resolve(`./env/.env.${process.env.NODE_ENV}`),
 });
+/** import swagger configs */
+const SwaggerConfig = require("./src/config/swagger.config");
 
 async function main() {
 	/** create an app instants from express */

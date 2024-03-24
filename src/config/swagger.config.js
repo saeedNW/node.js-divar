@@ -27,7 +27,7 @@ const SwaggerConfig = (app) => {
 			],
 		},
 		/** set the rute of swagger docs */
-		apis: [process.cwd() + "src/modules/**/*.swagger.js"],
+		apis: [process.cwd() + "/src/modules/**/*.swagger.js"],
 	});
 
 	/** initialize swagger UI */
