@@ -11,8 +11,12 @@ const UserModel = require("../user/user.model");
 const createHttpError = require("http-errors");
 /** import authentication message */
 const { AuthMessage } = require("./auth.messages");
+/** import common messages */
+const { CommonMessage } = require("../../common/messages/common.messages");
 /** import crypto module */
 const { randomInt } = require("crypto");
+/** import JWt */
+const jwt = require("jsonwebtoken");
 
 class AuthService {
 	/**
@@ -46,7 +50,7 @@ class AuthService {
 		/** return error if user creation failed */
 		if (!user) {
 			throw new createHttpError.InternalServerError(
-				AuthMessage.InternalServerError
+				CommonMessage.InternalServerError
 			);
 		}
 		/** return user data */
@@ -57,8 +61,38 @@ class AuthService {
 	 * OTP code validator service
 	 * @param {string} mobile - user phone number
 	 * @param {number} code - user OTP code
+	 * @returns {Promise<string>} - JWT access token
 	 */
-	async checkOTP(mobile, code) {}
+	async checkOTP(mobile, code) {
+		/** check for user existence */
+		const user = await this.checkUserExistence({ mobile });
+		/** return error if user was notfound */
+		if (!user) {
+			throw new createHttpError.NotFound(AuthMessage.UserNotFound);
+		}
+		/** get current date-time */
+		const currentTime = new Date().getTime();
+		/** throw error if the OTP code was expired */
+		if (user?.otp?.expiresIn < currentTime) {
+			throw new createHttpError.Unauthorized(AuthMessage.OtpCodeExpired);
+		}
+		/** throw error if the OTP code was incorrect */
+		if (user?.otp?.code !== code) {
+			throw new createHttpError.Unauthorized(AuthMessage.OtpCodeIsIncorrect);
+		}
+		/** update user mobile verification status */
+		if (!user.verifiedMobile) {
+			user.verifiedMobile = true;
+		}
+		/** create user JWT access token */
+		const accessToken = this.signToken({ mobile, id: user._id });
+		/** update user access token */
+		user.accessToken = accessToken;
+		/** save user data in database */
+		await user.save();
+		/** return access token */
+		return accessToken;
+	}
 
 	/**
 	 *
@@ -116,6 +150,15 @@ class AuthService {
 		if (!user) return undefined;
 		/** return user data */
 		return user;
+	}
+
+	/**
+	 * sign JWT access token
+	 * @param {object} payload - JWT payload data
+	 * @returns {string} - return JWT access token
+	 */
+	signToken(payload) {
+		return jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn: "1y" });
 	}
 }
 

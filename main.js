@@ -14,6 +14,8 @@ const { mainRouter } = require("./src/app.routes");
 const notFoundHandler = require("./src/common/exceptions/notfound.handler");
 /** import errors exception handler */
 const errorsHandler = require("./src/common/exceptions/error.handler");
+/** import cookie parser */
+const cookieParser = require("cookie-parser");
 
 async function main() {
 	/** create an app instants from express */
@@ -32,6 +34,8 @@ async function main() {
 	app.use(express.json());
 	/** initialize express urlencoded body parser */
 	app.use(express.urlencoded({ extended: true }));
+	/** initialize cookieParser module */
+	app.use(cookieParser(process.env.COOKIE_PARSER_SECRET));
 
 	/** initialize swagger */
 	SwaggerConfig(app);

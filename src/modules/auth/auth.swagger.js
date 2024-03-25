@@ -19,6 +19,18 @@
  *                      description: user mobile number
  *                      minLength: 11
  *                      maxLength: 11
+ *          CheckOTP:
+ *              type: object
+ *              required:
+ *                  -   mobile
+ *                  -   code
+ *              properties:
+ *                  mobile:
+ *                      type: string
+ *                      description: user mobile number
+ *                  code:
+ *                      type: string
+ *                      description: user verification code
  */
 
 /**
@@ -46,6 +58,27 @@
  *                          type: string
  *                          description: user otp code (accessible only in dev environment)
  *                          example: 15248
+ *      CheckOTPSuccess:
+ *          type: object
+ *          properties:
+ *              status:
+ *                  type: integer
+ *                  description: response http status code
+ *                  example: 200
+ *              success:
+ *                  type: boolean
+ *                  description: define process ending status
+ *                  example: true
+ *              message:
+ *                  type: string
+ *                  description: response message
+ *                  example: "your request ended successfully"
+ *              data:
+ *                  type: object
+ *                  properties:
+ *                      token:
+ *                          type: string
+ *                          description: user JWT access token
  */
 
 /**
@@ -66,11 +99,6 @@
  *                  type: string
  *                  description: response message
  *                  example: "Bad request"
- */
-
-/**
- * @swagger
- *  definitions:
  *      ServerError:
  *          type: object
  *          properties:
@@ -86,11 +114,6 @@
  *                  type: string
  *                  description: response message
  *                  example: "server internal error"
- */
-
-/**
- * @swagger
- *  definitions:
  *      ValidationError:
  *          type: object
  *          properties:
@@ -121,6 +144,36 @@
  *                          type: string
  *                          description: Name of the filed that got error
  *                          example: "error message"
+ *      Unauthorized:
+ *          type: object
+ *          properties:
+ *              status:
+ *                  type: integer
+ *                  description: response http status code
+ *                  example: 401
+ *              success:
+ *                  type: boolean
+ *                  description: define process ending status
+ *                  example: false
+ *              message:
+ *                  type: string
+ *                  description: response message
+ *                  example: "please login to your account"
+ *      NotFound:
+ *          type: object
+ *          properties:
+ *              status:
+ *                  type: integer
+ *                  description: response http status code
+ *                  example: 404
+ *              success:
+ *                  type: boolean
+ *                  description: define process ending status
+ *                  example: false
+ *              message:
+ *                  type: string
+ *                  description: response message
+ *                  example: "requested data was not found"
  */
 
 /**
@@ -151,6 +204,54 @@
  *                      application/json:
  *                          schema:
  *                              $ref: '#/definitions/BadRequest'
+ *              422:
+ *                  description: validation error
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/definitions/ValidationError'
+ *              500:
+ *                  description: server internal error
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/definitions/ServerError'
+ */
+
+/**
+ * @swagger
+ * /auth/check-otp:
+ *  post:
+ *      summary: users' check otp process
+ *      tags: [Public(Auth)]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/x-www-form-urlencoded:
+ *                  schema:
+ *                      $ref: '#/components/schemas/CheckOTP'
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/CheckOTP'
+ *      responses:
+ *              200:
+ *                  description: successful
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/definitions/CheckOTPSuccess'
+ *              401:
+ *                  description: Unauthorized
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/definitions/Unauthorized'
+ *              404:
+ *                  description: notfound
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/definitions/NotFound'
  *              422:
  *                  description: validation error
  *                  content:

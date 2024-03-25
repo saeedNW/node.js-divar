@@ -10,11 +10,16 @@ const { AuthMessage } = require("./auth.messages");
 /** import auto bind */
 const autoBind = require("auto-bind");
 /** import http status codes */
-const { StatusCodes } = require("http-status-codes");
+const { StatusCodes: httpStatus } = require("http-status-codes");
+/** import cookies enum */
+const CookieNames = require("../../common/constant/cookies.enum");
+/** import node environments enum */
+const NodeEnv = require("../../common/constant/env.enum");
 /** import utilities */
 const {
 	fixNumbers,
 	sendSuccessResponse,
+	fixDataNumbers,
 } = require("../../common/utils/functions");
 
 class AuthController {
@@ -54,7 +59,7 @@ class AuthController {
 			/** send success response */
 			return sendSuccessResponse(
 				res,
-				StatusCodes.OK,
+				httpStatus.OK,
 				AuthMessage.SentOTPSuccessfully,
 				{ otp: user.otp.code }
 			);
@@ -72,6 +77,25 @@ class AuthController {
 	 */
 	async checkOTP(req, res, next) {
 		try {
+			/** fix persian and arabic numbers in request body */
+			fixDataNumbers(req.body);
+			/** extract data from request body */
+			const { mobile, code } = req.body;
+			/** initialize check otp service module */
+			const token = await this.#service.checkOTP(mobile, code);
+			/** set user access token cookie */
+			res.cookie(CookieNames.AccessToken, token, {
+				httpOnly: true,
+				secure: process.env.NODE_ENV === NodeEnv.Production,
+				signed: true,
+			});
+			/** send success message */
+			return sendSuccessResponse(
+				res,
+				httpStatus.OK,
+				AuthMessage.LoginSuccessfully,
+				{ token }
+			);
 		} catch (err) {
 			next(err);
 		}
