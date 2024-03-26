@@ -7,13 +7,13 @@ dotenv.config({
 	path: process.cwd() + `/env/.env.${process.env.NODE_ENV}`,
 });
 /** import swagger configs */
-const SwaggerConfig = require("./src/config/swagger.config");
+const { SwaggerConfig } = require("./src/config/swagger.config");
 /** import main router */
-const { mainRouter } = require("./src/app.routes");
+const { MainRouter } = require("./src/app.routes");
 /** import notfound exception handler */
-const notFoundHandler = require("./src/common/exceptions/notfound.handler");
+const { NotFoundHandler } = require("./src/common/exceptions/notfound.handler");
 /** import errors exception handler */
-const errorsHandler = require("./src/common/exceptions/error.handler");
+const { ErrorsHandler } = require("./src/common/exceptions/error.handler");
 /** import cookie parser */
 const cookieParser = require("cookie-parser");
 
@@ -41,11 +41,11 @@ async function main() {
 	SwaggerConfig(app);
 
 	/** initialize application routers */
-	app.use(mainRouter);
+	app.use(MainRouter);
 	/** initialize notfound exception handler */
-	notFoundHandler(app);
+	NotFoundHandler(app);
 	/** initialize errors exception handler */
-	errorsHandler(app);
+	ErrorsHandler(app);
 
 	app.listen(PORT, () => {
 		console.log(`Server: http://localhost:${PORT}`);

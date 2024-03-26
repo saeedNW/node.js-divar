@@ -12,9 +12,9 @@ const autoBind = require("auto-bind");
 /** import http status codes */
 const { StatusCodes: httpStatus } = require("http-status-codes");
 /** import cookies enum */
-const CookieNames = require("../../common/constant/cookies.enum");
+const { CookiesName } = require("../../common/constants/cookies.enum");
 /** import node environments enum */
-const NodeEnv = require("../../common/constant/env.enum");
+const { NodeEnv } = require("../../common/constants/env.enum");
 /** import utilities */
 const {
 	fixNumbers,
@@ -84,7 +84,7 @@ class AuthController {
 			/** initialize check otp service module */
 			const token = await this.#service.checkOTP(mobile, code);
 			/** set user access token cookie */
-			res.cookie(CookieNames.AccessToken, token, {
+			res.cookie(CookiesName.AccessToken, token, {
 				httpOnly: true,
 				secure: process.env.NODE_ENV === NodeEnv.Production,
 				signed: true,

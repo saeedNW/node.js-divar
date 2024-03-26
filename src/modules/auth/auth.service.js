@@ -6,7 +6,7 @@
 /** import auto bind */
 const autoBind = require("auto-bind");
 /** import user model */
-const UserModel = require("../user/user.model");
+const { UserModel } = require("../user/user.model");
 /** import http-error module */
 const createHttpError = require("http-errors");
 /** import authentication message */

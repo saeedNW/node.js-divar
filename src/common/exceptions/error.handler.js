@@ -5,7 +5,7 @@ const createHttpError = require("http-errors");
  * application's error exceptions handler
  * @param {object} app - express application instants
  */
-function errorsHandler(app) {
+function ErrorsHandler(app) {
 	app.use((err, req, res, next) => {
 		/** define server internal error */
 		const serverError = new createHttpError.InternalServerError();
@@ -24,4 +24,4 @@ function errorsHandler(app) {
 	});
 }
 
-module.exports = errorsHandler;
+module.exports = { ErrorsHandler };

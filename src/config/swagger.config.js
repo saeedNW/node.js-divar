@@ -36,4 +36,4 @@ const SwaggerConfig = (app) => {
 	app.use("/api-doc", swaggerUi.serve, swagger);
 };
 
-module.exports = SwaggerConfig;
+module.exports = { SwaggerConfig };

@@ -3,7 +3,7 @@ const { body } = require("express-validator");
 /** import helper functions */
 const { fixNumbers } = require("../../common/utils/functions");
 /** import regex constants */
-const { PhoneRegEx } = require("../../common/constant/regex.enum");
+const { RegexConst } = require("../../common/constants/regex.enum");
 /** import authentication message */
 const { AuthMessage } = require("./auth.messages");
 
@@ -11,7 +11,7 @@ const { AuthMessage } = require("./auth.messages");
  * get opt process validator
  * @returns {ValidationChain[]}
  */
-function sendOTPValidator() {
+function SendOTPValidator() {
 	return [
 		/**
 		 * user's mobile number validator
@@ -28,7 +28,9 @@ function sendOTPValidator() {
 				mobile = fixNumbers(mobile);
 
 				/** throw error if date format is invalid */
-				if (!PhoneRegEx.test(mobile)) throw AuthMessage.InvalidMobileNumber;
+				if (!RegexConst.PhoneRegEx.test(mobile)) {
+					throw AuthMessage.InvalidMobileNumber;
+				}
 
 				return true;
 			}),
@@ -39,7 +41,7 @@ function sendOTPValidator() {
  * check opt code validator
  * @returns {ValidationChain[]}
  */
-function checkOptValidator() {
+function CheckOptValidator() {
 	return [
 		/**
 		 * user's mobile number validator
@@ -56,7 +58,9 @@ function checkOptValidator() {
 				mobile = fixNumbers(mobile);
 
 				/** throw error if date format is invalid */
-				if (!PhoneRegEx.test(mobile)) throw AuthMessage.InvalidMobileNumber;
+				if (!RegexConst.PhoneRegEx.test(mobile)) {
+					throw AuthMessage.InvalidMobileNumber;
+				}
 
 				return true;
 			}),
@@ -70,6 +74,6 @@ function checkOptValidator() {
 }
 
 module.exports = {
-	sendOTPValidator,
-	checkOptValidator,
+	SendOTPValidator,
+	CheckOptValidator,
 };

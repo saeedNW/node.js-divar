@@ -7,7 +7,7 @@ const { validationResult } = require("express-validator");
  * @param {Object} res - The Express response object
  * @param {Function} next - The next middleware function
  */
-function expressValidatorMapper(req, res, next) {
+function ExpressValidatorMapper(req, res, next) {
 	/**
 	 * Object to store the validation errors.
 	 * @type {Object}
@@ -46,4 +46,4 @@ function expressValidatorMapper(req, res, next) {
 	next();
 }
 
-module.exports = { expressValidatorMapper };
+module.exports = { ExpressValidatorMapper };

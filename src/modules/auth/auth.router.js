@@ -1,33 +1,33 @@
 /** import express module */
 const express = require("express");
 /** create express Router instance */
-const authRouter = express.Router();
+const AuthRouter = express.Router();
 /** import auth controller */
 const AuthController = require("./auth.controller");
 /** import authentication validator */
-const { sendOTPValidator, checkOptValidator } = require("./auth.validator");
+const { SendOTPValidator, CheckOptValidator } = require("./auth.validator");
 /** import express validator mapper */
 const {
-	expressValidatorMapper,
+	ExpressValidatorMapper,
 } = require("../../common/middlewares/express.validator.mapper");
 
 /** send otp code router */
-authRouter.post(
+AuthRouter.post(
 	"/send-otp",
-	sendOTPValidator(),
-	expressValidatorMapper,
+	SendOTPValidator(),
+	ExpressValidatorMapper,
 	AuthController.sendOTP
 );
 
 /** check otp code router */
-authRouter.post(
+AuthRouter.post(
 	"/check-otp",
-	checkOptValidator(),
-	expressValidatorMapper,
+	CheckOptValidator(),
+	ExpressValidatorMapper,
 	AuthController.checkOTP
 );
 
 /** export router */
 module.exports = {
-	authRouter,
+	AuthRouter,
 };
