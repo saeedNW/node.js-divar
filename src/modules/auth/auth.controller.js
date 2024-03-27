@@ -110,6 +110,10 @@ class AuthController {
 	 */
 	async logout(req, res, next) {
 		try {
+			/** remove user auth cookie */
+			res.clearCookie(CookiesName.AccessToken);
+			/** send success message */
+			return sendSuccessResponse(res, httpStatus.OK);
 		} catch (err) {
 			next(err);
 		}

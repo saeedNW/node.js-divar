@@ -10,6 +10,10 @@ const { SendOTPValidator, CheckOptValidator } = require("./auth.validator");
 const {
 	ExpressValidatorMapper,
 } = require("../../common/middlewares/express.validator.mapper");
+/** import authorization guard */
+const {
+	AuthorizationGuard,
+} = require("../../common/guard/authorization.guard");
 
 /** send otp code router */
 AuthRouter.post(
@@ -26,6 +30,9 @@ AuthRouter.post(
 	ExpressValidatorMapper,
 	AuthController.checkOTP
 );
+
+/** logout router */
+AuthRouter.get("/logout", AuthorizationGuard, AuthController.logout);
 
 /** export router */
 module.exports = {

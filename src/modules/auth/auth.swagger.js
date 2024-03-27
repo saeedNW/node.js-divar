@@ -265,3 +265,30 @@
  *                          schema:
  *                              $ref: '#/definitions/ServerError'
  */
+
+/**
+ * @swagger
+ * /auth/logout:
+ *  get:
+ *      summary: users' logout process
+ *      tags: [Public(Auth)]
+ *      responses:
+ *              200:
+ *                  description: successful
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/definitions/DefaultSuccess'
+ *              401:
+ *                  description: Unauthorized
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/definitions/Unauthorized'
+ *              500:
+ *                  description: server internal error
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/definitions/ServerError'
+ */
