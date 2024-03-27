@@ -16,7 +16,7 @@ const { CookiesName } = require("../constants/cookies.enum");
  * @param {Function} next - express next function
  * @returns {Promise<void>}
  */
-const Authorization = async (req, res, next) => {
+const AuthorizationGuard = async (req, res, next) => {
 	try {
 		/**
 		 * retrieve token from request cookies or header
@@ -53,7 +53,7 @@ const Authorization = async (req, res, next) => {
 
 		/** register user in the request */
 		req.user = user;
-		
+
 		return next();
 	} catch (error) {
 		next(error);
@@ -86,4 +86,4 @@ function getToken(cookies, headers) {
 	throw new createHttpError.Unauthorized(AuthorizationMessage.Login);
 }
 
-module.exports = { Authorization };
+module.exports = { AuthorizationGuard };

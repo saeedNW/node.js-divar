@@ -40,7 +40,7 @@
  *          type: object
  *          properties:
  *              status:
- *                  type: string
+ *                  type: integer
  *                  description: response http status code
  *                  example: 200
  *              success:
