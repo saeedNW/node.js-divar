@@ -4,7 +4,7 @@
  */
 
 /** import authentication service */
-const authService = require("./auth.service");
+const AuthService = require("./auth.service");
 /** import authentication message */
 const { AuthMessage } = require("./auth.messages");
 /** import auto bind */
@@ -37,7 +37,7 @@ class AuthController {
 		 * set private service variable's value
 		 * @private
 		 */
-		this.#service = authService;
+		this.#service = AuthService;
 	}
 
 	/**
