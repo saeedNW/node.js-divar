@@ -40,7 +40,7 @@ function fixDataNumbers(data) {
 			/** if the value is a non empty array, recursively fix numbers in the array */
 			fixDataNumbers(data[key]);
 		} else if (typeof data[key] === "object" && data[key] !== null) {
-			/** if the value is a non empty  object, recursively fix numbers in the object */
+			/** if the value is a non empty object, recursively fix numbers in the object */
 			fixDataNumbers(data[key]);
 		}
 	});

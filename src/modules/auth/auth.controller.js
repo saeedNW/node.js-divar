@@ -84,7 +84,7 @@ class AuthController {
 			/** initialize check otp service module */
 			const token = await this.#service.checkOTP(mobile, code);
 			/** set user access token cookie */
-			res.cookie(CookiesName.AccessToken, token, {
+			res.cookie(CookiesName.AccessToken, `Bearer ${token}`, {
 				httpOnly: true,
 				secure: process.env.NODE_ENV === NodeEnv.Production,
 				signed: true,
