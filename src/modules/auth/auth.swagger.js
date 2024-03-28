@@ -1,7 +1,7 @@
 /**
  * @swagger
  * tags:
- *  name: Public(Auth)
+ *  name: Auth
  *  description: Auth Module and Routes
  */
 
@@ -181,7 +181,8 @@
  * /auth/send-otp:
  *  post:
  *      summary: users' otp creation process
- *      tags: [Public(Auth)]
+ *      tags:
+ *          -   Auth
  *      requestBody:
  *          required: true
  *          content:
@@ -223,7 +224,8 @@
  * /auth/check-otp:
  *  post:
  *      summary: users' check otp process
- *      tags: [Public(Auth)]
+ *      tags:
+ *          -   Auth
  *      requestBody:
  *          required: true
  *          content:
@@ -271,7 +273,8 @@
  * /auth/logout:
  *  get:
  *      summary: users' logout process
- *      tags: [Public(Auth)]
+ *      tags:
+ *          -   Auth
  *      responses:
  *              200:
  *                  description: successful

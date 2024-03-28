@@ -1,7 +1,7 @@
 /**
  * @swagger
  * tags:
- *  name: UserPanel(Profile)
+ *  name: UserProfile
  *  description: User Module and Routes
  */
 
@@ -32,7 +32,8 @@
  * /user/profile:
  *  get:
  *      summary: retrieve user profile data
- *      tags: [UserPanel(Profile)]
+ *      tags:
+ *          -   UserProfile
  *      responses:
  *              200:
  *                  description: successful
