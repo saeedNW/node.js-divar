@@ -11,6 +11,10 @@ MainRouter.use("/auth", AuthRouter);
 const { UserRouter } = require("./modules/user/user.router");
 MainRouter.use("/user", UserRouter);
 
+/** import and initialize category router */
+const { CategoryRouter } = require("./modules/category/category.router");
+MainRouter.use("/category", CategoryRouter);
+
 /** export router */
 module.exports = {
 	MainRouter,
