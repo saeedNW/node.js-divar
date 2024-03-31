@@ -15,7 +15,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - /application/node_modules
+      - /usr/src/app/node_modules
+      - node_uploads:/usr/src/app/public/uploads/
     command: npm start
 
   divar_mongodb:
@@ -39,4 +40,5 @@ services:
 volumes:
   mongodb_data:
     driver: local
-    
+  node_uploads:
+    driver: local

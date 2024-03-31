@@ -1,5 +1,7 @@
 /** import express validator validationResult method */
 const { validationResult } = require("express-validator");
+/** import uploaded files management functions */
+const { removeFileByDataObject } = require("../../common/utils/multer");
 
 /**
  * middleware function to map Express Validator validation results to a standard error format.
@@ -22,6 +24,18 @@ function ExpressValidatorMapper(req, res, next) {
 
 	/** Check if there are any validation errors */
 	if (validation?.errors?.length > 0) {
+		/**
+		 * check if there is multiply files uploaded.
+		 * remove all uploaded files;
+		 */
+		if (req.files) removeFileByDataObject(req.files, true);
+
+		/**
+		 * check if there is only one file uploaded.
+		 * remove the uploaded file;
+		 */
+		if (req.file) removeFileByDataObject(req.file);
+		
 		/**
 		 * Loop through the validation errors
 		 * and map them to the error object
