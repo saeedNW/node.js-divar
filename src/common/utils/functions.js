@@ -127,10 +127,53 @@ function copyObject(object) {
 	return JSON.parse(JSON.stringify(object));
 }
 
+/**
+ * Checks if a value is considered 'true'.
+ * @param {*} value - The value to check.
+ * @returns {boolean} - True if the value is considered 'true', false otherwise.
+ */
+const isTrue = (value) => ["true", 1, true].includes(value);
+
+/**
+ * Checks if a value is considered 'false'.
+ * @param {*} value - The value to check.
+ * @returns {boolean} - True if the value is considered 'false', false otherwise.
+ */
+const isFalse = (value) => ["false", 0, false].includes(value);
+
+/**
+ * converts a given field into an array.
+ * @param {string|string[]} field - the input string or array-like string.
+ * @returns {string[]} - the resulting array.
+ */
+function stringToArray(field) {
+	/** Check if the field exists */
+	if (field) {
+		if (typeof field === "string") {
+			/**
+			 * Check if the field's value is a string.
+			 * Split the string based on '#' or ',' and trim each item
+			 */
+			field = field.split(/#|,/).map((item) => item.trim());
+		} else if (Array.isArray(field)) {
+			/** If the field's value is already an array, trim each item in the array */
+			field = field.map((item) => item.trim());
+		}
+	} else {
+		/** If the field is not present, set it to an empty array */
+		field = [];
+	}
+
+	return field;
+}
+
 module.exports = {
 	fixNumbers,
 	fixDataNumbers,
 	deleteInvalidPropertyInObject,
 	sendSuccessResponse,
 	copyObject,
+	isTrue,
+	isFalse,
+	stringToArray,
 };

@@ -67,8 +67,11 @@ class CategoryService {
 	async remove(id) {
 		/** check category existence */
 		await this.checkExistById(id);
-		/** remove the category */
-		await this.#model.deleteMany({ _id: id });
+		/** remove options related to the category */
+		await this.#optionModel.deleteMany({ category: id }).then(async () => {
+			/** remove the category if the options removed successfully */
+			await this.#model.deleteMany({ _id: id });
+		});
 		/** return the process result */
 		return true;
 	}

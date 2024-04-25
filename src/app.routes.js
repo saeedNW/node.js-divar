@@ -15,6 +15,10 @@ MainRouter.use("/user", UserRouter);
 const { CategoryRouter } = require("./modules/category/category.router");
 MainRouter.use("/category", CategoryRouter);
 
+/** import and initialize options router */
+const { OptionRouter } = require("./modules/option/option.router");
+MainRouter.use("/option", OptionRouter);
+
 /** export router */
 module.exports = {
 	MainRouter,

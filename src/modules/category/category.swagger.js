@@ -8,6 +8,17 @@
 /**
  * @swagger
  *  components:
+ *      parameters:
+ *          CategoryId:
+ *              name: categoryId
+ *              description: category object id
+ *              in: path
+ *              type: string
+ *          CategorySlug:
+ *              name: categorySlug
+ *              description: category slug
+ *              in: path
+ *              type: string
  *      schemas:
  *          CreateCategory:
  *              type: object
@@ -64,8 +75,6 @@
  *                  type: string
  *                  description: response message
  *                  example: "your request ended successfully"
- *              data:
- *                  type: object
  */
 
 /**

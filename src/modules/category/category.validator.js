@@ -1,6 +1,6 @@
 /** import express validator body method */
 const { body, param } = require("express-validator");
-/** import authentication message */
+/** import message */
 const { CategoryMessage } = require("./category.message");
 /** import mongoose module */
 const { default: mongoose } = require("mongoose");
