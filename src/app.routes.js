@@ -20,6 +20,10 @@ const { OptionRouter } = require("./modules/option/option.router");
 MainRouter.use("/option", OptionRouter);
 
 MainRouter.get("/", (req, res) => {
+	res.locals.layout = "./layouts/website/main";
+	res.render("./pages/home/index")
+})
+MainRouter.get("/panel", (req, res) => {
 	res.render("./pages/panel/dashboard")
 })
 
