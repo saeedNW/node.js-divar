@@ -19,6 +19,10 @@ MainRouter.use("/category", CategoryRouter);
 const { OptionRouter } = require("./modules/option/option.router");
 MainRouter.use("/option", OptionRouter);
 
+MainRouter.get("/", (req, res) => {
+	res.render("./pages/panel/dashboard")
+})
+
 /** export router */
 module.exports = {
 	MainRouter,
