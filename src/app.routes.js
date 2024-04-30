@@ -23,6 +23,10 @@ MainRouter.get("/", (req, res) => {
 	res.locals.layout = "./layouts/website/main";
 	res.render("./pages/home/index")
 })
+MainRouter.get("/login", (req, res) => {
+	res.locals.layout = "./layouts/auth/main";
+	res.render("./pages/auth/login")
+})
 MainRouter.get("/panel", (req, res) => {
 	res.render("./pages/panel/dashboard")
 })
