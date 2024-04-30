@@ -28,12 +28,13 @@ services:
     volumes:
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
       - mongodb_data:/data/db
-    ports:
-      - "27018:27017"
     expose:
       - "27017"
     networks:
       - divar_network
+    # TODO: To prevent access to the database from outside the server, remove this option in the actual deployment
+    ports:
+      - "27018:27017"
 
 volumes:
   mongodb_data:
