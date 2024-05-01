@@ -5,7 +5,7 @@
  */
 function fixNumbers(num) {
 	/** remove commas */
-	num = num ? num.replaceAll(",", "") : num;
+	num = num ? num.toString().replaceAll(",", "") : num;
 
 	// prettier-ignore
 	const persianNumbers = [
@@ -23,7 +23,7 @@ function fixNumbers(num) {
 			num = num.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
 		}
 	}
-	return num ? num.replaceAll(",", "") : num;
+	return num ? num.toString().replaceAll(",", "") : num;
 }
 
 /**
@@ -34,7 +34,9 @@ function fixDataNumbers(data) {
 	/** loop over data object */
 	Object.keys(data).forEach((key) => {
 		/** fix persian and arabic numbers */
-		data[key] = fixNumbers(data[key]);
+		if (typeof data[key] === "string" || typeof data[key] === "number") {
+			data[key] = fixNumbers(data[key]);
+		}
 
 		if (Array.isArray(data[key]) && data[key].length > 0) {
 			/** if the value is a non empty array, recursively fix numbers in the array */

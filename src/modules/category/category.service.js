@@ -112,6 +112,15 @@ class CategoryService {
 		return copyObject(category);
 	}
 
+	async findCategoriesByAggregate(query = {}) {
+		const categories = await this.#model.aggregate([
+			{
+				$match: { ...query },
+			},
+		]);
+		return copyObject(categories);
+	}
+
 	async checkExistById(id) {
 		const category = await this.#model.findById(id);
 		if (!category) throw new createHttpError.NotFound(CategoryMessage.NotFound);

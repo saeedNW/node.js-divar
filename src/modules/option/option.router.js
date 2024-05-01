@@ -4,7 +4,13 @@ const express = require("express");
 const OptionRouter = express.Router();
 /** import options controller */
 const OptionController = require("./option.controller");
+/** import validators */
 const { NewOptionValidator } = require("./option.validator");
+/** import string to array middleware */
+const {
+	stringToArray,
+} = require("../../common/middlewares/string.to.array.middleware");
+/** import express validator mapper */
 const {
 	ExpressValidatorMapper,
 } = require("../../common/middlewares/express.validator.mapper");
@@ -12,6 +18,7 @@ const {
 /** new option creation route */
 OptionRouter.post(
 	"/new",
+	stringToArray("enum"),
 	NewOptionValidator(),
 	ExpressValidatorMapper,
 	OptionController.create

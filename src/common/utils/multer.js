@@ -18,7 +18,7 @@ function temporaryUploadDirectory() {
 	 * define temporary upload directory
 	 * @type {string}
 	 */
-	const uploadPath = process.cwd() + "/uploads/temp";
+	const uploadPath = process.cwd() + "/public/uploads/temp";
 
 	/**
 	 * create upload path if it doesn't exist
@@ -215,7 +215,9 @@ function uploadFinalization(file, uploadPath, itemId = undefined) {
 	if (!file) return false;
 
 	/** define file real path */
-	let filePath = `./public/uploads/${uploadPath}/${itemId}`;
+	let filePath = itemId
+		? `./public/uploads/${uploadPath}/${itemId}`
+		: `./public/uploads/${uploadPath}`;
 
 	/**
 	 * create upload path if it doesn't exist
@@ -256,7 +258,7 @@ function uploadFinalization(file, uploadPath, itemId = undefined) {
 }
 
 /** define files size limit  */
-const fileMaxSize = 3000 * 1000; /** 3MB file size limit */
+const fileMaxSize = 10000 * 1000; /** 3MB file size limit */
 
 /** create multer file uploader with defined storage configuration */
 const FileUploader = multer({
