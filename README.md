@@ -20,7 +20,7 @@ and [nodejs.cms](https://github.com/saeedNW/nodejs.cms) within my repositories.
     - [Development Environment](#development-environment)
     - [Production Environment](#production-environment)
     - [Stopping Production Application](#stopping-production-application)
-    - [Additional Notes](#additional-notes)
+  - [Additional Notes](#additional-notes)
   - [Technologies Used](#technologies-used)
   - [Contributors](#contributors)
 
@@ -92,7 +92,7 @@ To stop the application and the Docker containers (in production mode), run:
 docker-compose down
 ```
 
-### Additional Notes
+## Additional Notes
 
 - Make sure to set up environment variables as needed in the **.env** file. These
   variables may include database connection details and other sensitive information.
