@@ -100,6 +100,12 @@ docker-compose down
 - If you encounter any issues during the installation process or while running the application, please check the
   project's issue tracker on GitHub or contact the project maintainers for support.
 
+- In order to connect to Production MongoDB through MongoDB compass or terminal you can use the following connection string
+
+  ```bash
+  mongodb://Manager:aFkdpfww%5EkRKP%5E@127.0.0.1:27018/divar
+  ```
+
 Now you should have your Node.js application up and running!
 
 ## Technologies Used
