@@ -19,17 +19,13 @@ MainRouter.use("/category", CategoryRouter);
 const { OptionRouter } = require("./modules/option/option.router");
 MainRouter.use("/option", OptionRouter);
 
-MainRouter.get("/", (req, res) => {
-	res.locals.layout = "./layouts/website/main";
-	res.render("./pages/home/index")
-})
-MainRouter.get("/login", (req, res) => {
-	res.locals.layout = "./layouts/auth/main";
-	res.render("./pages/auth/login")
-})
-MainRouter.get("/panel", (req, res) => {
-	res.render("./pages/panel/dashboard")
-})
+/** import and initialize posts router */
+const { PostRouter } = require("./modules/post/post.router");
+MainRouter.use("/post", PostRouter);
+
+/** initialize landing page route */
+const PostController = require("./modules/post/post.controller");
+MainRouter.get("/", PostController.postList);
 
 /** export router */
 module.exports = {

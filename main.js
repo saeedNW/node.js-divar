@@ -18,6 +18,10 @@ const { ErrorsHandler } = require("./src/common/exceptions/error.handler");
 const cookieParser = require("cookie-parser");
 /** import express-ejs-layouts */
 const expressEjsLayouts = require("express-ejs-layouts");
+/** import moment */
+const moment = require("jalali-moment");
+/** import request method overwrite */
+const methodOverride = require("method-override");
 
 async function main() {
 	/** create an app instants from express */
@@ -41,6 +45,9 @@ async function main() {
 	/** initialize cookieParser module */
 	app.use(cookieParser(process.env.COOKIE_PARSER_SECRET));
 
+	/** initialize method  overwrite */
+	 app.use(methodOverride("_method"));
+
 	/** initialize express ejs layouts */
 	app.use(expressEjsLayouts);
 	/** initialize View Engine */
@@ -51,6 +58,9 @@ async function main() {
 	app.set("layout extractScripts", true);
 	/** enable express-ejs-layouts extractStyles feature */
 	app.set("layout extractStyles", true);
+
+	/** set moment as a local */
+	app.locals.moment = moment;
 
 	/** initialize swagger */
 	SwaggerConfig(app);

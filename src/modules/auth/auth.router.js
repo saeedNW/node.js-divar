@@ -15,6 +15,11 @@ const {
 	AuthorizationGuard,
 } = require("../../common/guard/authorization.guard");
 
+AuthRouter.get("/login", (req, res) => {
+	res.locals.layout = "./layouts/auth/main";
+	res.render("./pages/auth/login");
+});
+
 /** send otp code router */
 AuthRouter.post(
 	"/send-otp",
